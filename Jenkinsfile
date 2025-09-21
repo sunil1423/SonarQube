@@ -1,10 +1,10 @@
 pipeline {
     agent any
 
-    tools {
-        maven '3.9.9'   // Jenkins Maven tool (configure in Global Tools)
-        jdk 'JDK17'         // Jenkins JDK tool
-    }
+    // tools {
+    //     maven 'maven-3.9.9'   // Jenkins Maven tool (configure in Global Tools)
+    //     jdk 'JDK17'         // Jenkins JDK tool
+    // }
 
     environment {
         SCANNER_HOME = tool 'SonarScanner'
