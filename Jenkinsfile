@@ -23,19 +23,33 @@ pipeline {
             }
         }
 
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         withSonarQubeEnv('MySonarQube') {
+        //             bat """
+        //                 ${SCANNER_HOME}/bin/sonar-scanner \
+        //                 -Dsonar.projectKey=myproject-${env.BRANCH_NAME} \
+        //                 -Dsonar.projectName=MyProject-${env.BRANCH_NAME} \
+        //                 -Dsonar.sources=src \
+        //                 -Dsonar.java.binaries=target/classes
+        //             """
+        //         }
+        //     }
+        // }
         stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('MySonarQube') {
-                    bat """
-                        ${SCANNER_HOME}/bin/sonar-scanner \
-                        -Dsonar.projectKey=myproject-${env.BRANCH_NAME} \
-                        -Dsonar.projectName=MyProject-${env.BRANCH_NAME} \
-                        -Dsonar.sources=src \
-                        -Dsonar.java.binaries=target/classes
-                    """
-                }
-            }
+    steps {
+        withSonarQubeEnv('MySonarQube') {
+            bat """
+                %SCANNER_HOME%\\bin\\sonar-scanner ^
+                -Dsonar.projectKey=myproject-%BRANCH_NAME% ^
+                -Dsonar.projectName=MyProject-%BRANCH_NAME% ^
+                -Dsonar.sources=src ^
+                -Dsonar.java.binaries=target/classes
+            """
         }
+    }
+}
+
 
         stage('Quality Gate') {
             steps {
